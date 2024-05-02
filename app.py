@@ -1,11 +1,16 @@
-from flask import Flask, render_template
+from flask import Flask, render_template, request
 
 app = Flask(__name__)
 
 @app.route('/')
-def home():
-    names = ["George","Kvothe","Kaladin","Dalinar"]
-    return render_template("index.html", names=names)
+def hello_world():
+    return render_template("index.html", name='world')
+
+
+@app.route('/greet', methods=["POST", "GET"])
+def greet():
+    name = request.form["name_input"]
+    return render_template("index.html", name=name)
 
 
 if __name__ == "__main__":
